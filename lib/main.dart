@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shop/pages/products_overViewPage.dart';
+import 'package:shop/utils/app_routes.dart';
+import 'package:shop/pages/product_detail_page.dart';
+import 'package:shop/pages/products_overview_Page.dart';
+
+
 
 void main() {
   runApp(const MyApp());
@@ -13,8 +17,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        //fontFamily: 'Lato',
+        //primarySwatch: Colors.purple,
+        // colorScheme: ColorScheme.fromSwatch().copyWith(
+        //   secondary: Colors.blue,
+        // ),
+
         appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.green, // Cor padrão para todas as AppBars
+          backgroundColor: Colors.purple, // Cor padrão para todas as AppBars
           titleTextStyle: TextStyle(
             color: Colors.white, // Cor do texto
             fontSize: 20, // Tamanho da fonte
@@ -23,8 +33,11 @@ class MyApp extends StatelessWidget {
           centerTitle: true,
         ),
       ),
-      home: ProductOverviewPage(),
       debugShowCheckedModeBanner: false,
+      home: ProductsOverviewPage(),
+      routes: {
+        AppRoutes.PRODUCT_DETAIL: (ctx) => const ProductDetailPage(),
+      },
     );
   }
 }
