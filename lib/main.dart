@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
+      //create utilizado para criar os elementos.
       create: (_) => ProductList(),
       child: MaterialApp(
         theme: ThemeData(

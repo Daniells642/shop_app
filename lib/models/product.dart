@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-class Product {
+
+class Product with ChangeNotifier{
   final String id;
   final String title;
   final String description;
@@ -19,6 +21,7 @@ class Product {
 //método para alterar se o produto é favorito ou não.
   void toggleFavorite() {
     isFavorite = !isFavorite;
+    notifyListeners();
   }
 }
 

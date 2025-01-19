@@ -7,8 +7,6 @@ import 'package:shop/componentes/product_item.dart';
 class ProductGrid extends StatelessWidget {
   const ProductGrid({super.key});
 
-
-
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ProductList>(context);
@@ -17,7 +15,11 @@ class ProductGrid extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       itemCount:
           loadedProducts.length, //Pega a quantidade de itens dentro da lista.
-      itemBuilder: (ctx, i) => ProductItem(product: loadedProducts[i]),
+      //value é utilizado pois está utilizando os elementos que já foram criados anteriormente no Main.
+      itemBuilder: (ctx, i) => ChangeNotifierProvider.value (
+        value: loadedProducts[i],
+        child: const ProductItem(),
+      ),
       //Define uma estrutura de grid, exibindo 2 elementos na tela.
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
