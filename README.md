@@ -1,6 +1,6 @@
 # shop_app
 
-A new Flutter project.
+Meu App ShopCart.
 
 ## Getting Started
 
