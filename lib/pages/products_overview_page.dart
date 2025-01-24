@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shop/models/cart.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/componentes/badges.dart';
 import 'package:shop/models/product_list.dart';
 import 'package:shop/componentes/product_grid.dart';
 
@@ -46,6 +48,19 @@ class ProductsOverviewPage extends StatelessWidget {
             //print(selectedValue);
             ,
           ),
+          Consumer<Cart>(
+            builder: (ctx, cart, child) => Badges(
+              value: cart.itemsCount.toString(),
+              child: child!,
+            ),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.shopping_cart,
+                color: Colors.white,
+              ),
+            ),
+          )
         ],
         //backgroundColor: Colors.blue,
       ),
