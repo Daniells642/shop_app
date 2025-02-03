@@ -11,6 +11,10 @@ class AppDrawer extends StatelessWidget {
         children: [
           AppBar(
             title: const Text('Bem vindo Usuário!'),
+            iconTheme: const IconThemeData(
+              color: Colors.red, // Altere para a cor desejada
+            ),
+            automaticallyImplyLeading: false,
           ),
           const Divider(),
           ListTile(
