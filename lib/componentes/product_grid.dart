@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/models/product.dart';
 import 'package:shop/models/product_list.dart';
-import 'package:shop/componentes/product_item.dart';
+import 'package:shop/componentes/product_grid_item.dart';
 
 class ProductGrid extends StatelessWidget {
   const ProductGrid({super.key});
@@ -18,7 +18,7 @@ class ProductGrid extends StatelessWidget {
       //value é utilizado pois está utilizando os elementos que já foram criados anteriormente no Main.
       itemBuilder: (ctx, i) => ChangeNotifierProvider.value (
         value: loadedProducts[i],
-        child: const ProductItem(),
+        child: const ProductGridItem(),
       ),
       //Define uma estrutura de grid, exibindo 2 elementos na tela.
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
