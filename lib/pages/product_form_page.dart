@@ -167,6 +167,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
                       focusNode: _imageUrlFocus,
                       textInputAction: TextInputAction.done,
                       onSaved: (imageUrl) => _formData['imageUrl'] = imageUrl!,
+                      // ignore: no_leading_underscores_for_local_identifiers
                       validator: (_imageUrl) {
                         final imageUrl = _imageUrl ?? '';
                         if (!isValidImageUrl(imageUrl)) {
