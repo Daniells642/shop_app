@@ -127,12 +127,21 @@ class _ProductFormPageState extends State<ProductFormPage> {
                 onSaved: (price) => _formData['price'] = double.parse(price!),
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
-                validator: (value) {
-                  if (value!.isEmpty) {
+                validator: (price) {
+                  if (price!.isEmpty) {
                     return 'Please enter a price';
                   }
-                  if (double.tryParse(value) == null) {
+                  if (double.tryParse(price) == null) {
                     return 'Please enter a valid number';
+                  }
+                  if (double.parse(price) <= 0) {
+                    return 'Please enter a number greater than zero';
+                  }
+                  if (double.parse(price) >= 9999) {
+                    return 'Please enter a number less than 9999';
+                  }
+                  if (double.parse(price) <= 0) {
+                    return 'Please enter a number greater than zero';
                   }
                   return null;
                 },
