@@ -29,7 +29,7 @@ class ProductList with ChangeNotifier {
     notifyListeners();
   }
 
-   void saveProductFromData(Map<String, Object> data ) {
+   void saveProduct(Map<String, Object> data ) {
     bool hasId = data ['id'] != null;
     final newProduct = Product(
       id: hasId ? data['id'] as String : Random().nextDouble().toString(),
@@ -39,12 +39,10 @@ class ProductList with ChangeNotifier {
       imageUrl: data['imageUrl'] as String,
     );
     if (hasId) {
-       updateProduct(newProduct);
+      updateProduct(newProduct);
     } else {
       addProduct(newProduct);
     }
-    //notifica os interessados(pais/filhos).
-    addProduct(newProduct);
   }
    void addProduct(Product product) {
     _items.add(product);
@@ -53,10 +51,7 @@ class ProductList with ChangeNotifier {
   }
 
   void updateProduct(Product product) {
-    if (product == null || product.id == null) {
-      return;
-    }
-    final index = _items.indexWhere((prod) => prod.id == product.id);
+    int index = _items.indexWhere((prod) => prod.id == product.id);
     if (index >= 0) {
       _items[index] = product;
       notifyListeners();
