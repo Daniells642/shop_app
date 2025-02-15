@@ -57,4 +57,9 @@ class ProductList with ChangeNotifier {
       notifyListeners();
     }
   }
+//excluir produto
+  void removeProduct(Product product) {
+    _items.removeWhere((prod) => prod.id == product.id);
+    notifyListeners();
+  }
 }
