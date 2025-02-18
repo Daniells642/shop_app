@@ -29,7 +29,7 @@ class ProductList with ChangeNotifier {
     notifyListeners();
   }
 
-   void saveProductFromData(Map<String, Object> data ) {
+   void saveProduct(Map<String, Object> data ) {
     bool hasId = data ['id'] != null;
     final newProduct = Product(
       id: hasId ? data['id'] as String : Random().nextDouble().toString(),
@@ -43,16 +43,16 @@ class ProductList with ChangeNotifier {
     } else {
       addProduct(newProduct);
     }
-    //notifica os interessados(pais/filhos).
-    addProduct(newProduct);
   }
+  //Adicionar produtos
    void addProduct(Product product) {
     _items.add(product);
     //notifica os interessados(pais/filhos).
     notifyListeners();
   }
-
+//Editar produtos
   void updateProduct(Product product) {
+    // ignore: unnecessary_null_comparison
     if (product == null || product.id == null) {
       return;
     }
@@ -61,5 +61,10 @@ class ProductList with ChangeNotifier {
       _items[index] = product;
       notifyListeners();
     }
+  }
+
+  void removeProduct(Product product) {
+    _items.removeWhere((prod) => prod.id == product.id);
+    notifyListeners();
   }
 }

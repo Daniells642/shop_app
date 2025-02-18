@@ -10,5 +10,5 @@ class AppRoutes {
     // ignore: constant_identifier_names
   static const PRODUCTS = '/products';
 // ignore: constant_identifier_names
-  static const PRODUCTS_FORM = '/product-form';
+  static const PRODUCT_FORM = '/product-form';
 }
