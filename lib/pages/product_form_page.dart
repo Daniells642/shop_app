@@ -54,24 +54,6 @@ class _ProductFormPageState extends State<ProductFormPage> {
       }
     }
   }
-//método para liberar os recursos
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (_formData.isEmpty) {
-      final product = ModalRoute.of(context)!.settings.arguments as Product;
-      _formData['id'] = product.id;
-      _formData['name'] = product.name;
-      _formData['price'] = product.price;
-      _formData['description'] = product.description;
-      _formData['imageUrl'] = product.imageUrl;
-
-      _titleController.text = _formData['name'] as String;
-      _priceController.text = _formData['price'].toString();
-      _descriptionController.text = _formData['description'] as String;
-      _imageUrlController.text = _formData['imageUrl'] as String;
-        }
-  }
 
   @override
   void dispose() {
