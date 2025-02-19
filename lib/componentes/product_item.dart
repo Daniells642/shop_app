@@ -6,7 +6,7 @@ import 'package:shop/models/product_list.dart';
 
 class ProductItem extends StatelessWidget {
   final Product product;
-  const ProductItem({super.key,required this.product});
+  const ProductItem({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +24,7 @@ class ProductItem extends StatelessWidget {
               color: Theme.of(context).primaryColor,
               onPressed: () {
                 Navigator.of(context).pushNamed(
+
                   AppRoutes.PRODUCT_FORM,
                   arguments: product,
                 );
@@ -41,6 +42,7 @@ class ProductItem extends StatelessWidget {
                     actions: [
                       TextButton(
                         onPressed: () {
+
                           Navigator.of(ctx).pop(true);
                         },
                         child: const Text('Sim'),
@@ -50,16 +52,20 @@ class ProductItem extends StatelessWidget {
                           Navigator.of(ctx).pop(false);
                         },
                         child: const Text('Não'),
+
                       ),
                     ],
                   ),
                 ).then((value) {
                   if (value ?? false) {
+
                     // ignore: use_build_context_synchronously
+
                     Provider.of<ProductList>(context, listen: false)
                         .removeProduct(product);
                   }
                 });
+
                 // showDialog(
                 //   context: context,
                 //   builder: (ctx) => AlertDialog(

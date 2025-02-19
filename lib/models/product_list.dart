@@ -39,7 +39,7 @@ class ProductList with ChangeNotifier {
       imageUrl: data['imageUrl'] as String,
     );
     if (hasId) {
-       updateProduct(newProduct);
+      updateProduct(newProduct);
     } else {
       addProduct(newProduct);
     }
@@ -52,17 +52,18 @@ class ProductList with ChangeNotifier {
   }
 //Editar produtos
   void updateProduct(Product product) {
+
     // ignore: unnecessary_null_comparison
     if (product == null || product.id == null) {
       return;
     }
     final index = _items.indexWhere((prod) => prod.id == product.id);
+
     if (index >= 0) {
       _items[index] = product;
       notifyListeners();
     }
   }
-
   void removeProduct(Product product) {
     _items.removeWhere((prod) => prod.id == product.id);
     notifyListeners();
