@@ -10,7 +10,7 @@ class ProductFormPage extends StatefulWidget {
   // ignore: library_private_types_in_public_api
   _ProductFormPageState createState() => _ProductFormPageState();
 }
-
+//classe para criar o formulário de produtos
 class _ProductFormPageState extends State<ProductFormPage> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
@@ -30,6 +30,31 @@ class _ProductFormPageState extends State<ProductFormPage> {
     _imageUrlFocus.addListener(_updateImageUrl);
   }
 
+
+//método para carregar os dados do produto
+//quando o usuário clicar no botão de edição
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_formData.isEmpty) {
+      final arg = ModalRoute.of(context)!.settings.arguments;
+
+      if (arg != null) {
+        final product = arg as Product;
+        _formData['id'] = product.id;
+        _formData['name'] = product.name;
+        _formData['price'] = product.price;
+        _formData['description'] = product.description;
+        _formData['imageUrl'] = product.imageUrl;
+
+        _titleController.text = _formData['name'] as String;
+        _priceController.text = _formData['price'].toString();
+        _descriptionController.text = _formData['description'] as String;
+        _imageUrlController.text = _formData['imageUrl'] as String;
+      }
+    }
+  }
+//método para liberar os recursos
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -60,13 +85,13 @@ class _ProductFormPageState extends State<ProductFormPage> {
     _imageUrlFocus.removeListener(_updateImageUrl);
     super.dispose();
   }
-
+//método para atualizar a URL da imagem
   void _updateImageUrl() {
     if (!_imageUrlFocus.hasFocus) {
       setState(() {});
     }
   }
-
+//método para validar a URL da imagem
   bool isValidImageUrl(String url) {
     bool isValidUrl = Uri.tryParse(url) ?.hasAbsolutePath ?? false;
     bool containFile = url.toLowerCase().contains('.png') ||
@@ -75,7 +100,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
 
         return isValidUrl && containFile  ;
   }
-
+// método para submeter o formulário
   void _submitForm() {
     final isValid = _formKey.currentState!.validate();
     if (!isValid) {

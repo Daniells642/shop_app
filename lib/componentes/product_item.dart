@@ -24,7 +24,8 @@ class ProductItem extends StatelessWidget {
               color: Theme.of(context).primaryColor,
               onPressed: () {
                 Navigator.of(context).pushNamed(
-                  AppRoutes.PRODUCTS_FORM,
+
+                  AppRoutes.PRODUCT_FORM,
                   arguments: product,
                 );
               },
@@ -41,20 +42,25 @@ class ProductItem extends StatelessWidget {
                     actions: [
                       TextButton(
                         onPressed: () {
-                          Navigator.of(ctx).pop(false);
-                        },
-                        child: const Text('Não'),
-                      ),
-                      TextButton(
-                        onPressed: () {
+
                           Navigator.of(ctx).pop(true);
                         },
                         child: const Text('Sim'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(ctx).pop(false);
+                        },
+                        child: const Text('Não'),
+
                       ),
                     ],
                   ),
                 ).then((value) {
                   if (value ?? false) {
+
+                    // ignore: use_build_context_synchronously
+
                     Provider.of<ProductList>(context, listen: false)
                         .removeProduct(product);
                   }

@@ -44,20 +44,26 @@ class ProductList with ChangeNotifier {
       addProduct(newProduct);
     }
   }
+  //Adicionar produtos
    void addProduct(Product product) {
     _items.add(product);
     //notifica os interessados(pais/filhos).
     notifyListeners();
   }
-
+//Editar produtos
   void updateProduct(Product product) {
-    int index = _items.indexWhere((prod) => prod.id == product.id);
+
+    // ignore: unnecessary_null_comparison
+    if (product == null || product.id == null) {
+      return;
+    }
+    final index = _items.indexWhere((prod) => prod.id == product.id);
+
     if (index >= 0) {
       _items[index] = product;
       notifyListeners();
     }
   }
-//excluir produto
   void removeProduct(Product product) {
     _items.removeWhere((prod) => prod.id == product.id);
     notifyListeners();
