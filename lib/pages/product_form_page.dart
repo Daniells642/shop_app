@@ -10,6 +10,7 @@ class ProductFormPage extends StatefulWidget {
   // ignore: library_private_types_in_public_api
   _ProductFormPageState createState() => _ProductFormPageState();
 }
+
 //classe para criar o formulário de produtos
 class _ProductFormPageState extends State<ProductFormPage> {
   final _formKey = GlobalKey<FormState>();
@@ -29,7 +30,6 @@ class _ProductFormPageState extends State<ProductFormPage> {
     super.initState();
     _imageUrlFocus.addListener(_updateImageUrl);
   }
-
 
 //método para carregar os dados do produto
 //quando o usuário clicar no botão de edição
@@ -67,21 +67,24 @@ class _ProductFormPageState extends State<ProductFormPage> {
     _imageUrlFocus.removeListener(_updateImageUrl);
     super.dispose();
   }
+
 //método para atualizar a URL da imagem
   void _updateImageUrl() {
     if (!_imageUrlFocus.hasFocus) {
       setState(() {});
     }
   }
+
 //método para validar a URL da imagem
   bool isValidImageUrl(String url) {
-    bool isValidUrl = Uri.tryParse(url) ?.hasAbsolutePath ?? false;
+    bool isValidUrl = Uri.tryParse(url)?.hasAbsolutePath ?? false;
     bool containFile = url.toLowerCase().contains('.png') ||
         url.toLowerCase().contains('.jpg') ||
-        url.toLowerCase().contains('.jpeg');  
+        url.toLowerCase().contains('.jpeg');
 
-        return isValidUrl && containFile  ;
+    return isValidUrl && containFile;
   }
+
 // método para submeter o formulário
   void _submitForm() {
     final isValid = _formKey.currentState!.validate();
@@ -103,8 +106,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
           IconButton(
             icon: const Icon(Icons.save),
             onPressed: _submitForm,
-              //print('Salvando...');
-            
+            //print('Salvando...');
           ),
         ],
       ),
@@ -216,17 +218,16 @@ class _ProductFormPageState extends State<ProductFormPage> {
                     ),
                     alignment: Alignment.center,
                     child: _imageUrlController.text.isEmpty
-                        ? const Text('Enter a URL',)
-                        : Container(
-                          width: 100,
-                          height: 100,
-                          child: FittedBox(
-                              child: Image.network(
-                                _imageUrlController.text,
-                                fit: BoxFit.cover,
-                              ),
+                        ? const Text(
+                            'Enter a URL',
+                          )
+                        : SizedBox(
+                            width: 100,
+                            height: 100,
+                            child: Image.network(
+                              _imageUrlController.text,
                             ),
-                        ),
+                          ),
                   )
                 ],
               ),

@@ -49,7 +49,7 @@ class ProductList with ChangeNotifier {
 
   //Adicionar produtos
   void addProduct(Product product) {
-    http.post(
+    final future = http.post(
       Uri.parse('$_baseUrl/products.json'),
       body: jsonEncode({
         'name': product.name,
@@ -59,9 +59,19 @@ class ProductList with ChangeNotifier {
         'isFavorite': product.isFavorite,
       }),
     );
-    _items.add(product);
-    notifyListeners();
-  }
+    future.then((response) {
+      final id = json.decode(response.body)['name'];
+      _items.add(Product(
+        id: id,
+        name: product.name,
+        price: product.price,
+        description: product.description,
+        imageUrl: product.imageUrl,
+        isFavorite: product.isFavorite,
+      ));
+      notifyListeners();
+    });
+    }
 
 //Editar produtos
   void updateProduct(Product product) {
