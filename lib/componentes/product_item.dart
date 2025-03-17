@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/models/product.dart';
@@ -24,7 +25,6 @@ class ProductItem extends StatelessWidget {
               color: Theme.of(context).primaryColor,
               onPressed: () {
                 Navigator.of(context).pushNamed(
-
                   AppRoutes.PRODUCT_FORM,
                   arguments: product,
                 );
@@ -42,7 +42,6 @@ class ProductItem extends StatelessWidget {
                     actions: [
                       TextButton(
                         onPressed: () {
-
                           Navigator.of(ctx).pop(true);
                         },
                         child: const Text('Sim'),
@@ -52,16 +51,24 @@ class ProductItem extends StatelessWidget {
                           Navigator.of(ctx).pop(false);
                         },
                         child: const Text('Não'),
-
                       ),
                     ],
                   ),
-                ).then((value) {
+                ).then((value) async {
                   if (value ?? false) {
-
                     // ignore: use_build_context_synchronously
-                    Provider.of<ProductList>(context, listen: false)
-                        .removeProduct(product);
+                    try {
+                      // ignore: use_build_context_synchronously
+                      await Provider.of<ProductList>(context, listen: false)
+                          .removeProduct(product);
+                    } on HttpException catch (error) {
+                      // ignore: use_build_context_synchronously
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(error.toString()),
+                        ),
+                      );
+                    }
                   }
                 });
 
