@@ -88,7 +88,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
   }
 
 // método para submeter o formulário
-  void _submitForm() {
+  Future<void> _submitForm() async {
     final isValid = _formKey.currentState!.validate();
     if (!isValid) {
       return;
@@ -97,13 +97,30 @@ class _ProductFormPageState extends State<ProductFormPage> {
 
     setState(() => _isLoading = true);
     //print(_formData);
-    Provider.of<ProductList>(context, listen: false)
-        .saveProduct(_formData)
-        .then((value) {
-      setState(() => _isLoading = false);
+    try {
+      await Provider.of<ProductList>(context, listen: false)
+          .saveProduct(_formData);
       // ignore: use_build_context_synchronously
       Navigator.of(context).pop();
-    });
+    } catch (error) {
+      return await showDialog<void>(
+        // ignore: use_build_context_synchronously
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Ocorreu um erro!'),
+          content: const Text('Ocorreu um erro ao salvar o produto!'),
+          //Text(error.toString()),
+          actions: [
+            TextButton(
+              child: const Text('Fechar'),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      );
+    } finally {
+      setState(() => _isLoading = false);
+    }
   }
 
   @override

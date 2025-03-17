@@ -14,8 +14,25 @@ enum FilterOptions {
   all,
 }
 
-class ProductsOverviewPage extends StatelessWidget {
+class ProductsOverviewPage extends StatefulWidget {
   const ProductsOverviewPage({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _ProductsOverviewPageState createState() => _ProductsOverviewPageState();
+}
+
+class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
+  bool isLoading = true;
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<ProductList>(context, listen: false).loadProducts().then((value){
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +85,7 @@ class ProductsOverviewPage extends StatelessWidget {
         ],
         //backgroundColor: Colors.blue,
       ),
-      body: const ProductGrid(),
+      body: isLoading ? const Center(child:  CircularProgressIndicator(),): const ProductGrid(),
       drawer: const AppDrawer(),
     );
   }
