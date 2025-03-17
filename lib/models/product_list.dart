@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:math';
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -24,7 +23,8 @@ class ProductList with ChangeNotifier {
 
   //Obtendo produtos do backend com o metodo GET.
   Future<void> loadProducts() async {
-    final response = await http.get(Uri.parse('${Constants.PRODUCT_BASE_URL}.json'));
+    final response =
+        await http.get(Uri.parse('${Constants.PRODUCT_BASE_URL}.json'));
     if (response.body == 'null') {
       return;
     }
@@ -127,8 +127,8 @@ class ProductList with ChangeNotifier {
     if (index >= 0) {
       _items.removeWhere((prod) => prod.id == product.id);
       notifyListeners();
-      final response =
-          await http.delete(Uri.parse('${Constants.PRODUCT_BASE_URL}/${product.id}.json'));
+      final response = await http.delete(
+          Uri.parse('${Constants.PRODUCT_BASE_URL}/${product.id}.json'));
 
       if (response.statusCode >= 400) {
         _items.insert(index, product);
