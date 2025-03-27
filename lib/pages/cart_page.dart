@@ -93,10 +93,10 @@ class _CartButtonState extends State<CartButton> {
                       context,
                       listen: false,
                     ).addOrder(widget.cart);
+                    widget.cart.clear();
                     setState(() {
                       _isLoading == false;
                     });
-                    widget.cart.clear();
                   },
             child: const Text("COMPRAR"),
           );
