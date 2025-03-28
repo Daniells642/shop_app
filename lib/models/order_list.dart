@@ -31,21 +31,21 @@ class OrderList with ChangeNotifier {
   data.forEach((orderId, orderData) {
     _items.add(Order(
       id: orderId,
-      total: orderData['total'],
+      total: (orderData['total'] as num).toDouble(),
       date: DateTime.parse(orderData['date']),
       products: (orderData['products'] as List<dynamic>).map((item) {
         return CartItem(
           id: item['id'],
           productId: item['productId'],
           name: item['name'],
-          quantity: item['quantity'],
-          price: item['price'],
+          quantity: item['quantity'] ,
+          price: (item['price']as num).toDouble() ,
         );
       }).toList(),
     ));
   });
   notifyListeners();
-  print(data);
+  //print(data);
   }
 
 

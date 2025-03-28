@@ -35,7 +35,7 @@ class ProductList with ChangeNotifier {
       _items.add(Product(
         id: productId,
         name: productData['name'],
-        price: productData['price'],
+        price: (productData['price'] as num).toDouble(),
         description: productData['description'],
         imageUrl: productData['imageUrl'],
         isFavorite: productData['isFavorite'],
