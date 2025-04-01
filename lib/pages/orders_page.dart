@@ -14,6 +14,10 @@ class OrdersPage extends StatefulWidget {
 class _OrdersPageState extends State<OrdersPage> {
   bool _isLoading = true;
 
+   Future<void> _refreshOrders(BuildContext context) {
+    return Provider.of<OrderList>(context, listen: false).loadOrders();
+  }
+
   @override
   void initState(){
     super.initState();
@@ -28,10 +32,30 @@ class _OrdersPageState extends State<OrdersPage> {
     return Scaffold(
       appBar: AppBar(title: const Text('Meus Pedidos')),
       drawer: const AppDrawer(),
-      body: _isLoading ? const Center(child: CircularProgressIndicator(),) : ListView.builder(
-        itemCount: orders.itemsCount,
-        itemBuilder: (ctx, i) => OrderWidget(
-          order: orders.items[i],
+      body: RefreshIndicator(
+        onRefresh: () => _refreshOrders(context),
+        child: LayoutBuilder(
+          builder: (ctx, constraints) {
+            if (_isLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (orders.itemsCount == 0) {
+              return const Center(
+                child: Text(
+                  'Nenhum pedido encontrado!',
+                  style: TextStyle(fontSize: 18),
+                ),
+              );
+            } else {
+              return ListView.builder(
+                itemCount: orders.itemsCount,
+                itemBuilder: (ctx, i) => OrderWidget(
+                  order: orders.items[i],
+                ),
+              );
+            }
+          },
         ),
       ),
     );
