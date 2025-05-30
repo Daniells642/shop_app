@@ -38,10 +38,14 @@ class ProductsPage extends StatelessWidget {
               children: [
                 ProductItem(product: products.items[i]),
                 const Divider()
+                
               ],
             ),
           ),
+          
         ),
+        
+      
       ),
     );
   }

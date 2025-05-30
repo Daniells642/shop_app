@@ -27,7 +27,9 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
   @override
   void initState() {
     super.initState();
-    Provider.of<ProductList>(context, listen: false).loadProducts().then((value){
+    Provider.of<ProductList>(context, listen: false)
+        .loadProducts()
+        .then((value) {
       setState(() {
         isLoading = false;
       });
@@ -57,15 +59,12 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
               ),
             ],
             onSelected: (FilterOptions selectedValue) {
-              // ignore: avoid_print
               if (selectedValue == FilterOptions.favorite) {
                 provider.showFavoriteOnly();
               } else {
                 provider.showAll();
               }
-            }
-            //print(selectedValue);
-            ,
+            },
           ),
           Consumer<Cart>(
             builder: (ctx, cart, child) => Badges(
@@ -83,9 +82,21 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
             ),
           )
         ],
-        //backgroundColor: Colors.blue,
       ),
-      body: isLoading ? const Center(child:  CircularProgressIndicator(),): const ProductGrid(),
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : LayoutBuilder(
+              builder: (ctx, constraints) {
+                // Ajusta o número de colunas com base na largura da tela
+                final crossAxisCount = constraints.maxWidth > 1200
+                    ? 6 // Para telas muito grandes
+                    : constraints.maxWidth > 800
+                        ? 4 // Para telas médias
+                        : 2; // Para telas menores
+
+                return ProductGrid(crossAxisCount: crossAxisCount);
+              },
+            ),
       drawer: const AppDrawer(),
     );
   }

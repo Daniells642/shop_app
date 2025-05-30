@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shop/models/auth.dart';
 import 'package:shop/models/cart.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/pages/auth_page.dart';
 import 'package:shop/pages/cart_page.dart';
 import 'package:shop/utils/app_routes.dart';
 import 'package:shop/pages/orders_page.dart';
@@ -32,6 +34,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => OrderList(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => Auth(),
+        ),
       ],
       child: MaterialApp(
         theme: ThemeData(
@@ -54,6 +59,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         //home: const ProductsOverviewPage(),
         routes: {
+          AppRoutes.AUTH: (ctx) => const AuthPage(),
           AppRoutes.HOME: (ctx) => const ProductsOverviewPage(),
           AppRoutes.PRODUCT_DETAIL: (ctx) => const ProductDetailPage(),
           AppRoutes.CART: (ctx) =>  const CartPage(),
